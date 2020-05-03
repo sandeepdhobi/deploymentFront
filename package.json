@@ -3,8 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.9.12",
-    "@material-ui/icons": "^4.9.1",
     "axios": "^0.19.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -13,8 +11,8 @@
     "redux": "^4.0.5"
   },
   "engines": {
-    "node": "12.16.x",
-    "npm": "6.x"
+    "node": "8.11.2",
+    "npm": "6.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -22,17 +20,5 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
   }
 }
