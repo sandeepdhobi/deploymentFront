@@ -12,6 +12,10 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5"
   },
+  "engines": {
+    "node": "12.16.x",
+    "npm": "6.x"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
