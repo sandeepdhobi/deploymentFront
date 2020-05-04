@@ -20,8 +20,16 @@ const deleteDeployment = (data) => {
     }
 }
 
+const deployed = (id) => {
+    return {
+        type: "DEPLOYED",
+        data: id
+    }
+}
+
 export default {
     fetchDeploymentList,
     addDeployment,
     deleteDeployment,
+    deployed,
 }

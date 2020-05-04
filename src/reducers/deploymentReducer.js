@@ -11,7 +11,17 @@ const deploymentState = (state = initialState, action) => {
         case "DELETE_DEPLOYMENT":
             return {...state, disploymentList: action.data }
         case "ADD_DEPLOYMENT":
+            action.data.deploying = true
             return {...state, disploymentList: [...state.disploymentList, action.data ]}
+        case "DEPLOYED":
+            const disploymentList = state.disploymentList.map(item => {
+                if(item._id == action.data){
+                    item.deploying = false
+                }
+                return item
+            })
+            return {...state, disploymentList: disploymentList}
+            
         default:
             return state
     }

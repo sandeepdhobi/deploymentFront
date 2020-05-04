@@ -4,12 +4,9 @@ import {useSelector, useDispatch} from 'react-redux'
 import AddDeploymentForm from './components/forms/AddDeploymentForm'
 import DeploymentTable from './components/tables/DeploymentTable'
 import allActions from './actions'
-import CountDown from './components/tables/countDown';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const App = () => {
-	const [ isCountZero, setisCountZero ] = useState(false)
-	const [ startCountDown, setstartCountDown ] = useState(false)
 	const [ isLoading, setisLoading ] = useState(false)
 
 
@@ -62,17 +59,10 @@ const App = () => {
 			if(response.status){
 				setisLoading(false)
 			}
-			setstartCountDown(true)
 		} catch (error) {
 			console.log(error)
 		}
 	}
-
-	const countReachesZero = () =>{
-		setisCountZero(true);
-		setstartCountDown(false);
-	}
-
 	return (
 		<div className="container" style={{maxWidth:'98vw'}}>
 			<div className="flex-row">
@@ -91,10 +81,6 @@ const App = () => {
 						</div>
 					}
 					<DeploymentTable disploymentList={disploymentList} deleteDeployment={deleteDeployment} />
-					{
-						startCountDown &&
-						<CountDown countReachesZero={countReachesZero} />
-					}
 				</div>
 			</div>
 		</div>
