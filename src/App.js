@@ -74,7 +74,7 @@ const App = () => {
 	}
 
 	return (
-		<div className="container">
+		<div className="container" style={{maxWidth:'98vw'}}>
 			<div className="flex-row">
 				<div className="flex-large">
 					<Fragment>

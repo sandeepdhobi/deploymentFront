@@ -1,5 +1,10 @@
 import React from 'react'
 
+const convertDate = (date) =>{
+  var d = new Date(date);
+  return d.toUTCString();
+}
+
 const DeploymentTable = props => (
   <table>
     <thead>
@@ -7,6 +12,7 @@ const DeploymentTable = props => (
         <th>Url</th>
         <th>Template Name</th>
         <th>Version</th>
+        <th>Deployed</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -17,6 +23,7 @@ const DeploymentTable = props => (
             <td>{deployment.url}</td>
             <td>{deployment.templateName}</td>
             <td>{deployment.version}</td>
+            <td>{convertDate(deployment.deployedAt)}</td>
             <td>
               <button
                 onClick={() => props.deleteDeployment(deployment._id)}

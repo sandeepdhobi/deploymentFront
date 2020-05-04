@@ -60,7 +60,9 @@ const AddDeploymentForm = props => {
 			}}
 		>
 			<label>Url</label>
-			<input type="text" name="url" value={template.url} onChange={handleInputChange} />
+			<input type="text" name="url" value={template.url} onChange={handleInputChange}
+			placeholder="https://stackoverflow.com/questions/35577874"
+			 />
 			<label>Template Name</label>
 			<select name="templateName" onChange={handleSelectionChange} value={template.templateName}>
 			<option value="">None</option>
