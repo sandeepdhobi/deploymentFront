@@ -1,44 +1,48 @@
 import React, { useState, Fragment, useEffect } from 'react'
 import API from './api';
-import {useSelector, useDispatch} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import AddDeploymentForm from './components/forms/AddDeploymentForm'
 import DeploymentTable from './components/tables/DeploymentTable'
 import allActions from './actions'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const App = () => {
-	const [ isLoading, setisLoading ] = useState(false)
-
+	const [isLoading, setisLoading] = useState(false)
 
 	const disploymentList = useSelector(state => state.deploymentReducer.disploymentList)
 	const dispatch = useDispatch()
 
 
-	useEffect( async () => {
+	useEffect(async () => {
 		async function fetchDeployments() {
 			try {
 				setisLoading(true)
 				const response = await API.get(`getDeployment`);
-				console.log(response);
-				dispatch(allActions.deploymentActions.fetchDeploymentList(response.data.data))
-				if(response.status){
-					setisLoading(false)
+				setisLoading(false)
+				if (response.status == 200) {
+					dispatch(allActions.deploymentActions.fetchDeploymentList(response.data.data))
+				}
+				else {
+					alert(response.data.message);
 				}
 			} catch (error) {
 				console.log(error)
 			}
 
-			}
-			fetchDeployments();
-	  }, []);
+		}
+		fetchDeployments();
+	}, []);
 
 	const deleteDeployment = async id => {
 		try {
 			setisLoading(true)
 			const response = await API.delete(`deleteDeployments/${id}`);
-			dispatch(allActions.deploymentActions.deleteDeployment(response.data.data))
-			if(response.status){
-				setisLoading(false)
+			setisLoading(false)
+			if (response.status == 200) {
+				dispatch(allActions.deploymentActions.deleteDeployment(response.data.data))
+			}
+			else {
+				alert(response.data.message);
 			}
 		} catch (error) {
 			console.log(error)
@@ -51,20 +55,23 @@ const App = () => {
 				url: data.url,
 				templateName: data.templateName,
 				version: data.version
-			  }
-			
-			  setisLoading(true)
-			const response = await API.post(`addDeployment`,payload);
-			dispatch(allActions.deploymentActions.addDeployment(response.data.data))
-			if(response.status){
-				setisLoading(false)
+			}
+
+			setisLoading(true)
+			const response = await API.post(`addDeployment`, payload);
+			setisLoading(false)
+			if (response.status == 200) {
+				dispatch(allActions.deploymentActions.addDeployment(response.data.data))
+			}
+			else {
+				alert(response.data.message)
 			}
 		} catch (error) {
 			console.log(error)
 		}
 	}
 	return (
-		<div className="container" style={{maxWidth:'98vw'}}>
+		<div className="container" style={{ maxWidth: '98vw' }}>
 			<div className="flex-row">
 				<div className="flex-large">
 					<Fragment>
@@ -72,11 +79,11 @@ const App = () => {
 						<AddDeploymentForm addDeployment={addDeployment} />
 					</Fragment>
 				</div>
-				<div className="flex-large" style={{position:"relative"}}>
+				<div className="flex-large" style={{ position: "relative" }}>
 					<h2>View deployments</h2>
 					{
 						isLoading &&
-						<div style={{position:"absolute", left:"50%",top:"50%"}}>
+						<div style={{ position: "absolute", left: "50%", top: "50%" }}>
 							<CircularProgress />
 						</div>
 					}

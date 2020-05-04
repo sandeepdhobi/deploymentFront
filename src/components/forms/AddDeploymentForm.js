@@ -53,8 +53,10 @@ const AddDeploymentForm = props => {
 		<form
 			onSubmit={event => {
 				event.preventDefault()
-				if (!template.url || !template.templateName || !template.version) return
-
+				if (!template.url || !template.templateName || !template.version) {
+					alert("Please fill the form")
+					return
+				}
 				props.addDeployment(template)
 				setTemplate(initialFormState)
 			}}
