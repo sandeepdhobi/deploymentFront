@@ -1,46 +1,37 @@
 import React from 'react'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
-const convertDate = (date) =>{
+const convertDate = (date) => {
   var d = new Date(date);
   return d.toUTCString();
 }
 
 const DeploymentTable = props => (
-  <table>
-    <thead>
-      <tr>
-        <th>Url</th>
-        <th>Template Name</th>
-        <th>Version</th>
-        <th>Deployed</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      {props.disploymentList.length > 0 ? (
+    props.disploymentList.length > 0 ?
+    (
+      <List component="nav" aria-label="contacts">
+      {
         props.disploymentList.map(deployment => (
-          <tr key={deployment._id}>
-            <td>{deployment.url}</td>
-            <td>{deployment.templateName}</td>
-            <td>{deployment.version}</td>
-            <td>{convertDate(deployment.deployedAt)}</td>
-            <td>
-              <button
-                onClick={() => props.deleteDeployment(deployment._id)}
-                className="button muted-button"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
+        <ListItem button>
+          <ListItemText className="deployment_url" inset primary={deployment.url} />
+          <ListItemText inset primary={deployment.templateName} />
+          <ListItemText inset primary={deployment.version} />
+          <ListItemText inset primary={convertDate(deployment.deployedAt)} />
+          <IconButton onClick={() => props.deleteDeployment(deployment._id)}>
+            <DeleteIcon />
+          </IconButton>
+        </ListItem>
         ))
+      }
+      </List>
       ) : (
-        <tr>
-          <td colSpan={3}>No users</td>
-        </tr>
-      )}
-    </tbody>
-  </table>
+        <div>No deployments yet</div>
+      )
+
 )
 
 export default DeploymentTable
