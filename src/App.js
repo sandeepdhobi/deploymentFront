@@ -60,6 +60,7 @@ const App = () => {
 			setisLoading(true)
 			const response = await API.post(`addDeployment`, payload);
 			setisLoading(false)
+			console.log(response,"ehllo me here")
 			if (response.status == 200) {
 				dispatch(allActions.deploymentActions.addDeployment(response.data.data))
 			}
@@ -79,7 +80,7 @@ const App = () => {
 						<AddDeploymentForm addDeployment={addDeployment} />
 					</Fragment>
 				</div>
-				<div className="flex-large" style={{ position: "relative" }}>
+				<div className="flex-large" style={{ position: "relative", maxWidth:'50%' }}>
 					<h2>View deployments</h2>
 					{
 						isLoading &&
