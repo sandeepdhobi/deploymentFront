@@ -5,10 +5,12 @@ import AddDeploymentForm from './components/forms/AddDeploymentForm'
 import DeploymentTable from './components/tables/DeploymentTable'
 import allActions from './actions'
 import CountDown from './components/tables/countDown';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const App = () => {
 	const [ isCountZero, setisCountZero ] = useState(false)
 	const [ startCountDown, setstartCountDown ] = useState(false)
+	const [ isLoading, setisLoading ] = useState(false)
 
 
 	const disploymentList = useSelector(state => state.deploymentReducer.disploymentList)
@@ -18,8 +20,13 @@ const App = () => {
 	useEffect( async () => {
 		async function fetchDeployments() {
 			try {
+				setisLoading(true)
 				const response = await API.get(`getDeployment`);
+				console.log(response);
 				dispatch(allActions.deploymentActions.fetchDeploymentList(response.data.data))
+				if(response.status){
+					setisLoading(false)
+				}
 			} catch (error) {
 				console.log(error)
 			}
@@ -30,8 +37,12 @@ const App = () => {
 
 	const deleteDeployment = async id => {
 		try {
+			setisLoading(true)
 			const response = await API.delete(`deleteDeployments/${id}`);
 			dispatch(allActions.deploymentActions.deleteDeployment(response.data.data))
+			if(response.status){
+				setisLoading(false)
+			}
 		} catch (error) {
 			console.log(error)
 		}
@@ -44,8 +55,13 @@ const App = () => {
 				templateName: data.templateName,
 				version: data.version
 			  }
+			
+			  setisLoading(true)
 			const response = await API.post(`addDeployment`,payload);
 			dispatch(allActions.deploymentActions.addDeployment(response.data.data))
+			if(response.status){
+				setisLoading(false)
+			}
 			setstartCountDown(true)
 		} catch (error) {
 			console.log(error)
@@ -68,6 +84,12 @@ const App = () => {
 				</div>
 				<div className="flex-large">
 					<h2>View deployments</h2>
+					{
+						isLoading &&
+						<div style={{position:"relative", left:"50%",top:"50%"}}>
+							<CircularProgress />
+						</div>
+					}
 					<DeploymentTable disploymentList={disploymentList} deleteDeployment={deleteDeployment} />
 					{
 						startCountDown &&
