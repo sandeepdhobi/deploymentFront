@@ -82,11 +82,11 @@ const App = () => {
 						<AddDeploymentForm addDeployment={addDeployment} />
 					</Fragment>
 				</div>
-				<div className="flex-large">
+				<div className="flex-large" style={{position:"relative"}}>
 					<h2>View deployments</h2>
 					{
 						isLoading &&
-						<div style={{position:"relative", left:"50%",top:"50%"}}>
+						<div style={{position:"absolute", left:"50%",top:"50%"}}>
 							<CircularProgress />
 						</div>
 					}
